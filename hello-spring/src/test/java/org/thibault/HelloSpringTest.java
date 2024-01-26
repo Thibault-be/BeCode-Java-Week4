@@ -7,14 +7,13 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 
 public class HelloSpringTest {
-  
   @Test
   public void FRReturnsBonjourLeMondeAvecSpring() {
     ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
     HelloWorldService hello = context.getBean(HelloWorldService.class);
     
+    String resultString = hello.helloMessage();
+    
     assertEquals("Bonjour le monde avec spring!", hello.helloMessage());
   }
-  
-  
 }
