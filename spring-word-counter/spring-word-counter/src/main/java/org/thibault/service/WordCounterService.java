@@ -20,10 +20,7 @@ public class WordCounterService {
   public void countWords(String input){
     String[] inputWords = splitInput(input);
     addKeyValues(inputWords);
-    
-    for (String entry : this.words.keySet()){
-      System.out.println(entry + ": " + this.words.get(entry));
-    }
+    printResultsTable(this.words);
   }
   
   private String[] splitInput(String input){
@@ -42,6 +39,19 @@ public class WordCounterService {
         this.words.put(word, count+1);
       }
     }
+  }
+  
+  private void printResultsTable(HashMap<String, Integer> results){
+    System.out.println("--------------------------");
+    System.out.printf("| %-13s |  %-5s |%n", "WORD", "COUNT" );
+    System.out.println("--------------------------");
+
+    
+    for (String key : results.keySet()){
+      System.out.printf("| %-13s |    %-3d |%n", key, results.get(key));
+    }
+    System.out.println("--------------------------");
+    
   }
 }
 
