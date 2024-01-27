@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 public class Hello implements Command {
   
   @Override
-  public void execute(){
-    System.out.println("Hello, commander.");
+  public String execute(){
+    return "Hello, commander.";
   }
 }

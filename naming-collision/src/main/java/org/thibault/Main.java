@@ -26,10 +26,10 @@ public class Main {
       
       switch (input){
         case "hello":
-          hello.execute();
+          System.out.println(hello.execute());
           break;
         case "time":
-          time.execute();
+          System.out.println(time.execute());
           break;
         case "":
           return;
