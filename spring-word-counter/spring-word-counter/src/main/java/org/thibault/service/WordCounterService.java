@@ -2,64 +2,70 @@ package org.thibault.service;
 
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Collections;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 public class WordCounterService {
   
-  private HashMap<String, Integer> words;
+  private List<HashMap<String, Integer>> words;
   
   public WordCounterService(){
-    this.words = new HashMap<>();
+    this.words = new ArrayList<>();
   }
   
   public void countWords(String input){
-    String[] inputWords = splitInput(input);
+    List<String[]> inputWords = splitInput(input);
     addKeyValues(inputWords);
     printResultsTable(this.words);
   }
   
-  private String[] splitInput(String input){
-    //replace all non-letter or space characters by ""
-    input = input.replaceAll("[^a-zA-Z\\s]", "").toLowerCase();
-    return input.split(" ");
+  private List<String[]> splitInput(String input){
+    List<String> sentences = Arrays.stream(input.split("\\."))
+        .map(String::trim)
+        .collect(Collectors.toList());
+        
+    List<String[]> brokenSentences = new ArrayList<>();
+    
+    for(String sentence : sentences){
+      //replace all non-letter or space characters by ""
+      sentence = sentence.replaceAll("[^a-zA-Z\\s]", "").toLowerCase();
+      System.out.println("sentence: " + sentence);
+      brokenSentences.add(sentence.split(" "));
+    }
+    return brokenSentences;
   }
   
-  private void addKeyValues(String[] inputWords){
-    for(String word : inputWords){
-      if (this.words.get(word) == null){
-        this.words.put(word, 1);
+  private void addKeyValues(List<String[]> inputWords){
+    for(String[] sentence : inputWords){
+      HashMap<String, Integer> sentenceMap = new HashMap<>();
+      for(String word : sentence){
+        if(sentenceMap.get(word) == null){
+          sentenceMap.put(word, 1);
+        }
+        else{
+          int count = sentenceMap.get(word);
+          sentenceMap.put(word, count+1);
+        }
       }
-      else{
-        int count = this.words.get(word);
-        this.words.put(word, count+1);
-      }
+      this.words.add(sentenceMap);
     }
   }
   
-  private void printResultsTable(HashMap<String, Integer> results){
+  private void printResultsTable(List<HashMap<String, Integer>> results){
     System.out.println("--------------------------");
     System.out.printf("| %-13s |  %-5s |%n", "WORD", "COUNT" );
     System.out.println("--------------------------");
-
     
-    for (String key : results.keySet()){
-      System.out.printf("| %-13s |    %-3d |%n", key, results.get(key));
+    int count = 1;
+    for (HashMap<String, Integer> sentence : results){
+      System.out.println("   WORD COUNT SENTENCE " + count);
+      System.out.println("--------------------------");
+      for (String key : sentence.keySet()){
+        System.out.printf("| %-13s |    %-3d |%n", key, sentence.get(key));
+      }
+      System.out.println("--------------------------");
+      count++;
     }
-    System.out.println("--------------------------");
-    
   }
 }
-
-
-//Implement word counting functionality:
-//
-//Create a Spring component (bean) responsible for counting words in a sentence.
-//Use the 'Singleton' scope for the bean by default (spring bean factory will create one instance).
-//Implement a method that takes a sentence as input and counts the occurrences of each word.
-//Disregard the difference between uppercase and lowercase letters (treat "Hello" and "hello" as the same word).
-//Disregard punctuation marks in the sentence.

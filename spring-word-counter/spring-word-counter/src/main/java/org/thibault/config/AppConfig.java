@@ -11,6 +11,4 @@ public class AppConfig {
   public WordCounterService getWcService(){
     return new WordCounterService();
   }
-  
-  
 }
