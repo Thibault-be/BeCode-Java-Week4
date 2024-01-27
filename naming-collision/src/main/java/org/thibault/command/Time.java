@@ -1,8 +1,11 @@
 package org.thibault.command;
 
+import org.springframework.stereotype.Component;
+
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
+@Component
 public class Time implements Command{
   
   public void execute(){

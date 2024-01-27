@@ -1,16 +1,22 @@
 package org.thibault;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.thibault.command.Hello;
 import org.thibault.command.Time;
+import org.thibault.config.AppConfig;
 
 public class Main {
   
   public static void main(String[] args) {
     
-    Hello hello = new Hello();
-    hello.execute();
+    ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
     
-    Time time = new Time();
+    Hello hello = context.getBean(Hello.class);
+    Time time = context.getBean(Time.class);
+    
+    hello.execute();
     time.execute();
+    
   }
 }
