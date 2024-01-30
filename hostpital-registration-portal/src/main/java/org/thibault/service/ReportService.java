@@ -19,17 +19,14 @@ public class ReportService {
     List<Visit> visits = this.registrationService.getAllVisits();
     
     if (visits.isEmpty()){
-      System.out.println("nothing to display");
+      System.out.println("\nNothing to display\n");
     }
     else {
-      System.out.println("Visit report:");
+      System.out.println("\nVisit report:");
       for (Visit visit : visits){
         System.out.println(visit.toString());
       }
-    }
-    
-    for (Visit visit : visits){
-      System.out.println(visit.toString());
+      System.out.println();
     }
   }
 }

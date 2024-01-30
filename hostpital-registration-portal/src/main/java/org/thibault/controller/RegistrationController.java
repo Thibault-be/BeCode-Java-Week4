@@ -28,11 +28,20 @@ public class RegistrationController {
     
     Visitor visitor = new Visitor(firstName, lastname);
     
-    System.out.println("Which doctor do you have an appointment with?");
-    System.out.println(doctors.toString());
-    
     //create new visit
-    int doctorId = scanner.nextInt();
+    int possibleDoctors = doctors.getSize() + 1;
+    boolean flag = true;
+    int doctorId = 0;
+    while(flag){
+      System.out.println("\nWhich doctor do you have an appointment with?");
+      System.out.println(doctors.toString());
+      doctorId = scanner.nextInt();
+      if (doctorId > possibleDoctors){
+        System.out.println("That entry wasn't possible, please try again.\n");
+        continue;
+      }
+      flag = false;
+    }
     
     Date date = new Date();
     Timestamp timestamp = new Timestamp(date.getTime());
@@ -46,6 +55,6 @@ public class RegistrationController {
     }
     this.registrationService.registerVisit(newVisit);
     
-    System.out.println("New registration successfully logged.: " + newVisit);
+    System.out.println("New registration successfully logged.: " + newVisit + "\n");
   }
 }

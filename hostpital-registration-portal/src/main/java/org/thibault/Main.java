@@ -42,7 +42,7 @@ public class Main {
         report.execute();
       }
       else {
-        System.out.println("Command not recognised. Please try again");
+        System.out.println("Command not recognised. Please try again.\n");
       }
     }
   }

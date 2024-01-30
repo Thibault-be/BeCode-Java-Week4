@@ -19,6 +19,10 @@ public class AllDoctors {
     doctor.setId(this.doctors.size());
   }
   
+  public int getSize(){
+    return this.doctors.size();
+  }
+  
   public Doctor getDoctorById(int id){
     for (Doctor doctor : this.doctors){
       if (doctor.getId() == id) return doctor;
