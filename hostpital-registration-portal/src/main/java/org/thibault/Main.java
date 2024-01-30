@@ -3,6 +3,7 @@ package org.thibault;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.thibault.command.RegisterCommand;
+import org.thibault.command.ReportCommand;
 import org.thibault.config.AppConfig;
 import org.thibault.model.AllDoctors;
 import org.thibault.model.Doctor;
@@ -14,16 +15,16 @@ public class Main {
   
   public static void main(String[] args) {
     
+    ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+    RegisterCommand register = context.getBean(RegisterCommand.class);
+    ReportCommand report = context.getBean(ReportCommand.class);
+    
     //Make some doctors
     Doctor john = new Doctor("John", "Doe", "Oncology");
     Doctor jane = new Doctor("Jane", "Doe", "Radiology");
-    
-    AllDoctors doctors = new AllDoctors();
+    AllDoctors doctors = context.getBean(AllDoctors.class);
     doctors.addDoctor(john);
     doctors.addDoctor(jane);
-    
-    
-    ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
     
     Scanner scan = new Scanner(System.in);
     
@@ -35,19 +36,15 @@ public class Main {
       if (input.isEmpty()) break;
       
       if (input.equals("register")){
-        RegisterCommand register = context.getBean(RegisterCommand.class);
+        register.execute(doctors);
       }
       else if (input.equals("report")){
-        System.out.println("report");
+        report.execute();
       }
       else {
         System.out.println("Command not recognised. Please try again");
       }
-      
-      
     }
-    
   }
-    
 }
 
