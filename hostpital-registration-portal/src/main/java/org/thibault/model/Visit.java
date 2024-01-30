@@ -1,4 +1,7 @@
-package org.thibault.registrationData;
+package org.thibault.model;
+
+import org.thibault.model.Doctor;
+import org.thibault.model.Visitor;
 
 import java.sql.Timestamp;
 

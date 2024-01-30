@@ -1,13 +1,13 @@
-package org.thibault.registrationData;
+package org.thibault.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class allDoctors {
+public class AllDoctors {
   
   private List<Doctor> doctors;
   
-  public allDoctors() {
+  public AllDoctors() {
     this.doctors = new ArrayList<>();
   }
   

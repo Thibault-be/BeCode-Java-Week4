@@ -1,8 +1,12 @@
-package org.thibault.registrationData;
+package org.thibault.model;
+
+import org.springframework.stereotype.Component;
+import org.thibault.model.Visit;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class listOfVisits {
   
   private List<Visit> visits;
@@ -11,7 +15,7 @@ public class listOfVisits {
     this.visits = new ArrayList<>();
   }
   
-  public void addVisist(Visit visit){
+  public void addVisit(Visit visit){
     this.visits.add(visit);
   }
 }

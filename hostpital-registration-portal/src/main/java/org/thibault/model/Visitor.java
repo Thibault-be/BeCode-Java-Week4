@@ -1,4 +1,4 @@
-package org.thibault.registrationData;
+package org.thibault.model;
 
 public class Visitor {
   
